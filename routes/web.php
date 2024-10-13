@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SubscriberController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,16 +17,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//THEME ROUTES
 Route::controller(ThemeController::class)->name('theme.')->group(function () {
     Route::get('/', 'index')->name('index');
     Route::get('/category', 'category')->name('category');
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/single-blog', 'singleBlog')->name('singleBlog');
-    Route::get('/login', 'login')->name('login');
-    Route::get('/register', 'register')->name('register');
 });
 
+//SUBSCRIBER STORE ROUTE
 
+Route::post('/subscriber/store', [SubscriberController::class, 'store'])->name('subscriber.store');
+
+//CONTACT STORE ROUTES
+
+Route::post('/contact/store', [ContactController::class,'store'])->name('contact.store');
+
+// BLOG ROUTES
+Route::resource('blogs', BlogController::class);
 
 
 Route::get('/dashboard', function () {
